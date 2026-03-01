@@ -6,8 +6,6 @@ import Runtime "mo:core/Runtime";
 import Text "mo:core/Text";
 import Iter "mo:core/Iter";
 
-
-
 actor {
   type Product = {
     id : Nat;
