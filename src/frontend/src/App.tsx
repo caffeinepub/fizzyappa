@@ -6,6 +6,7 @@ import { DeliveryCities } from "./components/DeliveryCities";
 import { Footer } from "./components/Footer";
 import { HeroSection } from "./components/HeroSection";
 import { HowItWorks } from "./components/HowItWorks";
+import { MostBought } from "./components/MostBought";
 import { Navbar } from "./components/Navbar";
 import { ProductCatalog } from "./components/ProductCatalog";
 import { CartProvider } from "./context/CartContext";
@@ -20,6 +21,7 @@ function AppContent() {
       <main className="flex-1">
         <HeroSection />
         <HowItWorks />
+        <MostBought />
         <ProductCatalog />
         <DeliveryCities />
       </main>
