@@ -20,11 +20,8 @@ export interface Order {
 }
 export interface Product {
     id: bigint;
-    flavor: string;
     name: string;
     priceInPaisa: bigint;
-    description: string;
-    productType: string;
     stock: bigint;
 }
 export interface OrderItem {

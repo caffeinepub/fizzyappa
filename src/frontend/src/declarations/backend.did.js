@@ -26,11 +26,8 @@ export const Order = IDL.Record({
 });
 export const Product = IDL.Record({
   'id' : IDL.Nat,
-  'flavor' : IDL.Text,
   'name' : IDL.Text,
   'priceInPaisa' : IDL.Nat,
-  'description' : IDL.Text,
-  'productType' : IDL.Text,
   'stock' : IDL.Nat,
 });
 
@@ -68,11 +65,8 @@ export const idlFactory = ({ IDL }) => {
   });
   const Product = IDL.Record({
     'id' : IDL.Nat,
-    'flavor' : IDL.Text,
     'name' : IDL.Text,
     'priceInPaisa' : IDL.Nat,
-    'description' : IDL.Text,
-    'productType' : IDL.Text,
     'stock' : IDL.Nat,
   });
   

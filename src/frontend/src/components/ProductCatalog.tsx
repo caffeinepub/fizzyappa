@@ -4,13 +4,14 @@ import { Search } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { useProducts } from "../hooks/useQueries";
+import type { LocalProduct } from "../types";
 import { ProductCard } from "./ProductCard";
 import { ProductSkeleton } from "./ProductSkeleton";
 
-const ALL_TYPES = ["All", "Classic Bomb", "Party Pack", "Taster Kit"];
+const ALL_TYPES = ["All", "Classic Bomb", "Party Pack", "Mega Box"];
 
 // Fallback products for when backend is loading/empty
-const FALLBACK_PRODUCTS = [
+const FALLBACK_PRODUCTS: LocalProduct[] = [
   // --- Classic Bombs (one per flavor) ---
   {
     id: BigInt(1),
@@ -82,13 +83,13 @@ const FALLBACK_PRODUCTS = [
       "A bold citrus punch with zesty lemon, lime and orange — the most electrifying single bomb in our lineup.",
     stock: BigInt(30),
   },
-  // --- Party Packs (3 flavors only) ---
+  // --- Party Packs (₹349 each) ---
   {
     id: BigInt(8),
     name: "Mango Tango Party Pack",
     flavor: "Mango Tango",
     productType: "Party Pack",
-    priceInPaisa: BigInt(47900),
+    priceInPaisa: BigInt(34900),
     description:
       "Share the mango magic! 6 Mango Tango bombs in one pack for all your party guests.",
     stock: BigInt(25),
@@ -98,7 +99,7 @@ const FALLBACK_PRODUCTS = [
     name: "Berry Blast Party Pack",
     flavor: "Berry Blast",
     productType: "Party Pack",
-    priceInPaisa: BigInt(47900),
+    priceInPaisa: BigInt(34900),
     description:
       "A party-sized berry bonanza — 6 Berry Blast bombs bursting with mixed berry fizz.",
     stock: BigInt(20),
@@ -108,42 +109,66 @@ const FALLBACK_PRODUCTS = [
     name: "Citrus Zing Party Pack",
     flavor: "Citrus Zing",
     productType: "Party Pack",
-    priceInPaisa: BigInt(49900),
+    priceInPaisa: BigInt(34900),
     description:
       "Party-sized pack of our zingy citrus bombs. 6 bombs per pack — perfect for celebrations!",
     stock: BigInt(30),
   },
-  // --- Taster Kits (2 flavors only) ---
+  // --- Mega Box (₹549 each) ---
   {
     id: BigInt(11),
-    name: "Rose Lychee Taster Kit",
-    flavor: "Rose Lychee",
-    productType: "Taster Kit",
-    priceInPaisa: BigInt(34900),
+    name: "Mango Tango Mega Box",
+    flavor: "Mango Tango",
+    productType: "Mega Box",
+    priceInPaisa: BigInt(54900),
     description:
-      "Try our floral rose lychee flavour — 3 bombs per kit. Perfect as a gift or introduction.",
-    stock: BigInt(20),
+      "The ultimate mango haul — 30 Mango Tango bombs for the biggest parties.",
+    stock: BigInt(15),
   },
   {
     id: BigInt(12),
-    name: "Mint Mojito Taster Kit",
-    flavor: "Mint Mojito",
-    productType: "Taster Kit",
-    priceInPaisa: BigInt(34900),
+    name: "Berry Blast Mega Box",
+    flavor: "Berry Blast",
+    productType: "Mega Box",
+    priceInPaisa: BigInt(54900),
     description:
-      "Try all our mint variants — 3 bombs per kit. The freshest way to experience Fyzzyapa.",
-    stock: BigInt(20),
+      "Stock up on berry fizz — 30 Berry Blast bombs in one mega box.",
+    stock: BigInt(15),
   },
 ];
+
+// Build a lookup map from id -> fallback data for enriching backend products
+const FALLBACK_BY_ID = new Map<bigint, LocalProduct>(
+  FALLBACK_PRODUCTS.map((p) => [p.id, p]),
+);
+
+function enrichProducts(
+  backendProducts: {
+    id: bigint;
+    name: string;
+    priceInPaisa: bigint;
+    stock: bigint;
+  }[],
+): LocalProduct[] {
+  return backendProducts.map((bp) => {
+    const fallback = FALLBACK_BY_ID.get(bp.id);
+    return {
+      ...bp,
+      flavor: fallback?.flavor ?? "",
+      productType: fallback?.productType ?? "",
+      description: fallback?.description ?? "",
+    };
+  });
+}
 
 export function ProductCatalog() {
   const { data: backendProducts, isLoading } = useProducts();
   const [activeType, setActiveType] = useState("All");
   const [search, setSearch] = useState("");
 
-  const products =
+  const products: LocalProduct[] =
     backendProducts && backendProducts.length > 0
-      ? backendProducts
+      ? enrichProducts(backendProducts)
       : FALLBACK_PRODUCTS;
 
   const filtered = products.filter((p) => {
@@ -166,7 +191,7 @@ export function ProductCatalog() {
           className="text-center mb-12"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/20 border border-secondary/30 text-secondary text-sm font-medium mb-4">
-            🎉 7 Bold Flavors · 12 Products
+            🎉 7 Bold Flavors · 14 Products
           </div>
           <h2 className="font-display text-4xl sm:text-5xl font-black mb-4">
             Pick Your <span className="fizz-gradient-text">Bombs</span>

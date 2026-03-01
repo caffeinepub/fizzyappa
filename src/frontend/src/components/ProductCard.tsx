@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { motion } from "motion/react";
 import { toast } from "sonner";
-import type { Product } from "../backend.d";
 import { useCart } from "../context/CartContext";
+import type { LocalProduct } from "../types";
 import {
   flavorColor,
   flavorToImage,
@@ -13,7 +13,7 @@ import {
 } from "../utils/format";
 
 interface ProductCardProps {
-  product: Product;
+  product: LocalProduct;
   index: number;
 }
 
@@ -38,8 +38,8 @@ function getFlavorAccentColor(flavor: string): string {
 
 export function ProductCard({ product, index }: ProductCardProps) {
   const { addItem } = useCart();
-  const imgSrc = flavorToImage(product.flavor);
-  const accentColor = getFlavorAccentColor(product.flavor);
+  const imgSrc = flavorToImage(product.flavor ?? "");
+  const accentColor = getFlavorAccentColor(product.flavor ?? "");
 
   const handleAdd = () => {
     addItem(product);

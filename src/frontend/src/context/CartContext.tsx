@@ -1,15 +1,15 @@
 import type React from "react";
 import { createContext, useCallback, useContext, useState } from "react";
-import type { Product } from "../backend.d";
+import type { LocalProduct } from "../types";
 
 export interface CartItem {
-  product: Product;
+  product: LocalProduct;
   quantity: number;
 }
 
 interface CartContextValue {
   items: CartItem[];
-  addItem: (product: Product) => void;
+  addItem: (product: LocalProduct) => void;
   removeItem: (productId: bigint) => void;
   updateQuantity: (productId: bigint, quantity: number) => void;
   clearCart: () => void;
@@ -25,7 +25,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
-  const addItem = useCallback((product: Product) => {
+  const addItem = useCallback((product: LocalProduct) => {
     setItems((prev) => {
       const existing = prev.find((i) => i.product.id === product.id);
       if (existing) {

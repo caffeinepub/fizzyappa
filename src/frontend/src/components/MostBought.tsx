@@ -2,9 +2,10 @@ import { Flame, ShoppingCart, Star } from "lucide-react";
 import { motion } from "motion/react";
 import { toast } from "sonner";
 import { useCart } from "../context/CartContext";
+import type { LocalProduct } from "../types";
 import { flavorToImage, formatPrice } from "../utils/format";
 
-const MOST_BOUGHT = [
+const MOST_BOUGHT: (LocalProduct & { rank: number; soldCount: string })[] = [
   {
     id: BigInt(1),
     name: "Mango Tango Classic Bomb",
@@ -46,7 +47,7 @@ const MOST_BOUGHT = [
     name: "Mango Tango Party Pack",
     flavor: "Mango Tango",
     productType: "Party Pack",
-    priceInPaisa: BigInt(47900),
+    priceInPaisa: BigInt(34900),
     description:
       "Share the mango magic! 6 Mango Tango bombs in one pack for all your party guests.",
     stock: BigInt(25),
