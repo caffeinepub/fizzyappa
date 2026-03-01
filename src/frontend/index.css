@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fizzyappa Brand Fonts */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque[opsz,wdth,wght].woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk";
+  src: url("/assets/fonts/CabinetGrotesk-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Outfit";
+  src: url("/assets/fonts/Outfit[wght].woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 1rem;
+
+    /* Fizzyappa Palette — vibrant tropical party */
+    /* Background: deep warm dark */
+    --background: 0.12 0.015 280;
+    --foreground: 0.97 0.01 90;
+
+    --card: 0.16 0.025 280;
+    --card-foreground: 0.97 0.01 90;
+
+    --popover: 0.18 0.03 280;
+    --popover-foreground: 0.97 0.01 90;
+
+    /* Primary: electric orange-amber */
+    --primary: 0.72 0.19 55;
+    --primary-foreground: 0.10 0.02 280;
+
+    /* Secondary: hot coral */
+    --secondary: 0.65 0.22 25;
+    --secondary-foreground: 0.97 0.01 90;
+
+    /* Muted */
+    --muted: 0.22 0.03 280;
+    --muted-foreground: 0.60 0.05 280;
+
+    /* Accent: neon lime-green */
+    --accent: 0.82 0.22 130;
+    --accent-foreground: 0.10 0.02 130;
+
+    /* Destructive */
+    --destructive: 0.58 0.24 27;
+    --destructive-foreground: 0.97 0.01 90;
+
+    --border: 0.28 0.04 280;
+    --input: 0.22 0.03 280;
+    --ring: 0.72 0.19 55;
+
+    /* Charts */
+    --chart-1: 0.72 0.19 55;
+    --chart-2: 0.65 0.22 25;
+    --chart-3: 0.82 0.22 130;
+    --chart-4: 0.68 0.20 300;
+    --chart-5: 0.60 0.18 185;
+
+    /* Sidebar */
+    --sidebar: 0.14 0.02 280;
+    --sidebar-foreground: 0.97 0.01 90;
+    --sidebar-primary: 0.72 0.19 55;
+    --sidebar-primary-foreground: 0.10 0.02 280;
+    --sidebar-accent: 0.20 0.03 280;
+    --sidebar-accent-foreground: 0.97 0.01 90;
+    --sidebar-border: 0.28 0.04 280;
+    --sidebar-ring: 0.72 0.19 55;
+
+    /* Brand custom tokens */
+    --fizz-orange: 0.72 0.19 55;
+    --fizz-coral: 0.65 0.22 25;
+    --fizz-lime: 0.82 0.22 130;
+    --fizz-purple: 0.58 0.20 300;
+    --fizz-cyan: 0.75 0.18 200;
+    --fizz-rose: 0.70 0.20 355;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Outfit", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: "Bricolage Grotesque", sans-serif;
+  }
+
+  .font-display {
+    font-family: "Bricolage Grotesque", sans-serif;
+  }
+
+  .font-body {
+    font-family: "Outfit", sans-serif;
+  }
+}
+
+@layer utilities {
+  .fizz-gradient {
+    background: linear-gradient(135deg, oklch(var(--fizz-orange)), oklch(var(--fizz-coral)));
+  }
+
+  .fizz-gradient-text {
+    background: linear-gradient(135deg, oklch(var(--fizz-orange)), oklch(var(--fizz-coral)), oklch(var(--fizz-purple)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .fizz-glow {
+    box-shadow: 0 0 30px oklch(var(--fizz-orange) / 0.5), 0 0 60px oklch(var(--fizz-coral) / 0.3);
+  }
+
+  .fizz-glow-pulse {
+    box-shadow: 0 0 20px oklch(var(--fizz-orange) / 0.4), 0 0 50px oklch(var(--fizz-coral) / 0.2);
+    animation: glowPulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes glowPulse {
+    0%, 100% {
+      box-shadow: 0 0 20px oklch(0.72 0.19 55 / 0.4), 0 0 50px oklch(0.65 0.22 25 / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 35px oklch(0.72 0.19 55 / 0.7), 0 0 80px oklch(0.65 0.22 25 / 0.4);
+    }
+  }
+
+  .card-glow {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .card-glow:hover {
+    box-shadow: 0 8px 40px oklch(var(--fizz-orange) / 0.3);
+    transform: translateY(-4px);
+  }
+
+  /* Section backgrounds */
+  .section-warm {
+    background: oklch(0.145 0.025 50);
+  }
+
+  .section-deep {
+    background: oklch(0.12 0.015 280);
+  }
+
+  /* Product card flavor accents */
+  .flavor-mango   { --flavor-accent: 0.78 0.19 65; }
+  .flavor-berry   { --flavor-accent: 0.62 0.22 310; }
+  .flavor-citrus  { --flavor-accent: 0.88 0.18 95; }
+  .flavor-rose    { --flavor-accent: 0.72 0.20 355; }
+  .flavor-mint    { --flavor-accent: 0.76 0.22 155; }
+  .flavor-watermelon { --flavor-accent: 0.68 0.22 20; }
+
+  .product-card-accent::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    border-radius: 0 0 1rem 1rem;
+    background: oklch(var(--flavor-accent, 0.72 0.19 55));
+  }
+
+  /* Stat pill frame */
+  .stat-pill-frame {
+    background: oklch(0.18 0.03 280 / 0.7);
+    border: 1px solid oklch(0.72 0.19 55 / 0.25);
+    backdrop-filter: blur(12px);
+  }
+
+  .noise-bg {
+    position: relative;
+  }
+
+  .noise-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .bubble-float {
+    animation: bubbleFloat 6s ease-in-out infinite;
+  }
+
+  @keyframes bubbleFloat {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-20px) scale(1.05); }
+  }
+
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      oklch(0.22 0.03 280) 25%,
+      oklch(0.28 0.04 280) 50%,
+      oklch(0.22 0.03 280) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+}
